@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorksheetSet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "topic",
+    "learning_goal",
+    "target_group",
+    "general_teacher_note",
+    "levels"
+  ],
+  "properties": {
+    "topic": {
+      "type": "string"
+    },
+    "learning_goal": {
+      "type": "string"
+    },
+    "target_group": {
+      "type": "string"
+    },
+    "general_teacher_note": {
+      "type": "string"
+    },
+    "levels": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "level_key",
+          "level_label",
+          "difficulty_description",
+          "student_title",
+          "student_instruction",
+          "tasks",
+          "support_material",
+          "image_needed",
+          "image_brief",
+          "solution_notes"
+        ],
+        "properties": {
+          "level_key": {
+            "type": "string",
+            "enum": [
+              "very_easy",
+              "medium",
+              "slightly_harder"
+            ]
+          },
+          "level_label": {
+            "type": "string",
+            "enum": [
+              "sehr leicht",
+              "mittel",
+              "etwas schwerer"
+            ]
+          },
+          "difficulty_description": {
+            "type": "string"
+          },
+          "student_title": {
+            "type": "string"
+          },
+          "student_instruction": {
+            "type": "string"
+          },
+          "tasks": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "task_type",
+                "prompt",
+                "expected_answer_format"
+              ],
+              "properties": {
+                "task_type": {
+                  "type": "string",
+                  "enum": [
+                    "multiple_choice",
+                    "matching",
+                    "sorting",
+                    "circling",
+                    "tracing",
+                    "fill_in",
+                    "short_answer",
+                    "cut_and_paste",
+                    "drawing",
+                    "open_task"
+                  ]
+                },
+                "prompt": {
+                  "type": "string"
+                },
+                "options": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "expected_answer_format": {
+                  "type": "string"
+                },
+                "hint": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "support_material": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "image_needed": {
+            "type": "boolean"
+          },
+          "image_brief": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "solution_notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

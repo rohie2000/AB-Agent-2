@@ -1,0 +1,74 @@
+{
+  "topic": "Farben",
+  "learning_goal": "Die Kinder erkennen und benennen die Grundfarben rot, gelb und blau.",
+  "target_group": "Foerderschulbereich, fruehe Lernstufe",
+  "general_teacher_note": "Kurze Arbeitsphasen, klare Wiederholung und sichtbare Farbhinweise helfen bei der Bearbeitung.",
+  "levels": [
+    {
+      "level_key": "very_easy",
+      "level_label": "sehr leicht",
+      "difficulty_description": "Eine Farbe pro Aufgabe, sehr kurze Arbeitsauftraege und klare Bildunterstuetzung.",
+      "student_title": "Meine Farben",
+      "student_instruction": "Male rot an. Zeige gelb. Kreise blau ein.",
+      "tasks": [
+        {
+          "task_type": "circling",
+          "prompt": "Kreise den blauen Ball ein.",
+          "expected_answer_format": "Ein Bild ist eingekreist."
+        }
+      ],
+      "support_material": [
+        "Farbkaerten rot, gelb, blau"
+      ],
+      "image_needed": true,
+      "image_brief": "Drei einfache Gegenstaende nebeneinander: ein roter Apfel, eine gelbe Sonne und ein blauer Ball auf weissem Hintergrund.",
+      "solution_notes": [
+        "Der blaue Ball wird eingekreist."
+      ]
+    },
+    {
+      "level_key": "medium",
+      "level_label": "mittel",
+      "difficulty_description": "Kurze Zuordnungen mit kleinen Denkschritten.",
+      "student_title": "Finde die passende Farbe",
+      "student_instruction": "Verbinde jedes Bild mit der richtigen Farbe.",
+      "tasks": [
+        {
+          "task_type": "matching",
+          "prompt": "Verbinde Apfel, Sonne und Ball mit rot, gelb und blau.",
+          "expected_answer_format": "Drei Verbindungen werden gezogen."
+        }
+      ],
+      "support_material": [
+        "Farbwoerter als Wortkarten"
+      ],
+      "image_needed": true,
+      "image_brief": "Einfach gezeichnete Motive fuer Apfel, Sonne und Ball mit gut erkennbaren Farben.",
+      "solution_notes": [
+        "Apfel zu rot, Sonne zu gelb, Ball zu blau."
+      ]
+    },
+    {
+      "level_key": "slightly_harder",
+      "level_label": "etwas schwerer",
+      "difficulty_description": "Mehr Selbststaendigkeit und ein kleiner Transfer in den Alltag.",
+      "student_title": "Farben im Alltag",
+      "student_instruction": "Schreibe oder male etwas Rotes, etwas Gelbes und etwas Blaues.",
+      "tasks": [
+        {
+          "task_type": "open_task",
+          "prompt": "Finde zu jeder Farbe einen Gegenstand aus deinem Alltag.",
+          "expected_answer_format": "Drei kurze Eintraege oder Zeichnungen."
+        }
+      ],
+      "support_material": [
+        "Beispielkarten mit Alltagsgegenstaenden"
+      ],
+      "image_needed": false,
+      "image_brief": null,
+      "solution_notes": [
+        "Moegliche Antworten: Apfel, Sonne, Ball."
+      ]
+    }
+  ]
+}

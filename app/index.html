@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AB-Agent</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">AB-Agent</p>
+        <h1>Arbeitsblatt-Assistentin</h1>
+        <p class="intro">
+          Diese Startseite ist das Grundgeruest fuer die spaetere Eingabe von Thema,
+          Lernziel, Differenzierung und Vorlagenwahl.
+        </p>
+      </div>
+      <div class="status-card">
+        <strong>MVP-Status</strong>
+        <p>Projektstruktur angelegt. Naechster Schritt: echte Vorlage integrieren.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Geplante Eingaben</h2>
+      <form class="form-grid">
+        <label>
+          <span>Thema</span>
+          <input type="text" placeholder="z. B. Farben">
+        </label>
+
+        <label>
+          <span>Lernziel</span>
+          <textarea rows="4" placeholder="z. B. Grundfarben erkennen und benennen"></textarea>
+        </label>
+
+        <label>
+          <span>Zielgruppe</span>
+          <input type="text" placeholder="z. B. Foerderschulbereich, fruehe Lernstufe">
+        </label>
+
+        <label>
+          <span>Bildbedarf</span>
+          <select>
+            <option>optional</option>
+            <option>ja</option>
+            <option>nein</option>
+          </select>
+        </label>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>Projektbausteine</h2>
+      <ul class="checklist">
+        <li>System-Prompt vorhanden</li>
+        <li>JSON-Schema vorhanden</li>
+        <li>Beispiel-Ein- und Ausgabe vorhanden</li>
+        <li>Vorlagenordner vorbereitet</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
