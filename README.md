@@ -42,13 +42,90 @@ Das Projekt trennt Inhalt und Layout:
 Das ist stabiler als ein reiner Chat-Workflow, weil:
 
 - die drei Niveaustufen besser kontrollierbar sind
-- die Schriftart "Stimme" technisch festgelegt werden kann
+- die Schriftart "OpenSan" technisch festgelegt werden kann
 - Vorlagen konsistent bleiben
 - Bilder optional als separater Schritt behandelt werden
 
+## Aktueller MVP-Stand
+
+Ein erster HTML-Renderer ist vorhanden:
+
+- `scripts/render_worksheets.py`
+- liest ein Arbeitsblatt-JSON ein
+- prueft die benoetigten Felder
+- erzeugt drei druckbare HTML-Seiten
+- orientiert sich an den beiden PDF-Vorlagen in `templates/`
+- nutzt vorhandene Piktogramme aus `pictogramme/`
+- enthaelt jetzt auch einen lokalen Generator-Server mit Formular und Vorschau
+
+## Lokaler Generator-Workflow
+
+### 1. API-Schluessel setzen
+
+Der echte Modellaufruf nutzt die OpenAI Responses API.
+
+```bash
+export OPENAI_API_KEY="dein_api_key"
+```
+
+Optional kannst du ein Modell vorgeben. Standard ist aktuell `gpt-5.4-mini`.
+
+```bash
+export OPENAI_MODEL="gpt-5.4-mini"
+```
+
+### 2. Lokale App starten
+
+```bash
+/Users/rolfyhientz/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 \
+  scripts/run_local_app.py
+```
+
+Danach ist die App unter `http://127.0.0.1:8123` erreichbar.
+
+### 3. Arbeitsblaetter erzeugen
+
+- Thema eintragen
+- Lernziel eintragen
+- optional Fokus, Wortschatz und Vorlagenvariante setzen
+- `Arbeitsblaetter erzeugen` klicken
+- oder `Demo laden` fuer einen lokalen Test ohne API-Aufruf
+
+Die Ergebnisse landen unter `out/generated/` als:
+
+- JSON-Datei der Modellantwort
+- HTML-Vorschau mit drei Niveaustufen
+- PDF-Datei fuer den Druck oder direkten Export
+
+### Renderer starten
+
+Beispiel mit der Vorlage `AB-Vorlage-mit-Arbeitsanweisungen.pdf`:
+
+```bash
+/Users/rolfyhientz/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 \
+  scripts/render_worksheets.py \
+  --input examples/output-example.json \
+  --output out/arbeitsblaetter-vorschau.html \
+  --template instructions
+```
+
+Alternative mit der blanken Vorlage:
+
+```bash
+/Users/rolfyhientz/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 \
+  scripts/render_worksheets.py \
+  --template blank
+```
+
+## Was noch fehlt
+
+- Einbindung der echten Schriftdatei `OpenSan`, falls du sie lokal bereitstellst
+- optional Bildgenerierung als zweiter Schritt
+- feinere Feldvalidierung direkt gegen das volle JSON-Schema
+
 ## Empfohlener naechster Schritt
 
-1. Eine echte Vorlage in `templates/` ablegen.
-2. Entscheiden, ob zuerst `DOCX` oder `HTML -> PDF` gebaut werden soll.
-3. Den Prompt mit dem JSON-Schema gegen erste Beispielthemen testen.
-4. Danach den eigentlichen Generator implementieren.
+1. Schriftdatei `OpenSan` in `templates/` oder einen Font-Unterordner legen.
+2. Ein erstes echtes Themenbeispiel ueber die lokale App generieren.
+3. Danach optional Bildgenerierung pro Blatt anbinden.
+4. Anschliessend Feinschliff bei Layout und Feldvalidierung machen.

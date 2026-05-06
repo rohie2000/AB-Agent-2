@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farben - Arbeitsblaetter</title>
+  <style>
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    :root {
+      --paper: #ffffff;
+      --ink: #2a2a2a;
+      --muted: #565656;
+      --line: #808080;
+      --line-soft: #a6a6a6;
+      --green-a: #e8efd7;
+      --green-b: #d7eb8a;
+      --point-green: #9fca8d;
+      --font-main: "OpenSan", "Open Sans", "Aptos", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-main);
+      color: var(--ink);
+      background: #ffffff;
+    }
+
+    .worksheet-set {
+      width: 210mm;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .page {
+      position: relative;
+      width: 210mm;
+      height: 297mm;
+      margin: 0 auto;
+      padding: 8.5mm 8.5mm 0;
+      background: var(--paper);
+      page-break-after: always;
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+    }
+
+    .top-grid,
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 56mm 1fr;
+      column-gap: 2.2mm;
+    }
+
+    .top-grid {
+      height: 16mm;
+      margin-bottom: 2mm;
+    }
+
+    .meta-grid {
+      height: 10mm;
+      margin-bottom: 2mm;
+    }
+
+    .subject-box,
+    .title-box,
+    .meta-box,
+    .sheet-frame,
+    .sheet-pill,
+    .instruction-row,
+    .instruction-icon-box,
+    .task-card,
+    .info-box,
+    .points-card,
+    .memo-card {
+      border: 0.35mm solid var(--line);
+      border-radius: 1.7mm;
+      background: #ffffff;
+    }
+
+    .subject-box,
+    .title-box,
+    .meta-box {
+      padding: 2.6mm 3mm;
+      display: flex;
+      align-items: center;
+      font-size: 5.2mm;
+    }
+
+    .title-box {
+      display: block;
+      padding-top: 2.2mm;
+      padding-left: 4.2mm;
+    }
+
+    .level-label {
+      font-size: 3.2mm;
+      margin-bottom: 0.6mm;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    h1 {
+      margin: 6px 0 4px;
+      font-size: 7.2mm;
+      line-height: 1;
+      font-weight: 400;
+    }
+
+    .title-sub {
+      margin: 0;
+      font-size: 3.8mm;
+      color: var(--muted);
+    }
+
+    .sheet-frame {
+      position: relative;
+      height: 271.5mm;
+      padding: 6.7mm 4.2mm 4mm;
+    }
+
+    .sheet-pill {
+      height: 10mm;
+      display: flex;
+      align-items: center;
+      padding: 0 3mm;
+      font-size: 6mm;
+      margin-bottom: 9mm;
+    }
+
+    .instruction-row-stack {
+      display: grid;
+      gap: 4mm;
+      margin: 0 4mm 5mm 4mm;
+    }
+
+    .instruction-row {
+      height: 12mm;
+      display: grid;
+      grid-template-columns: 15mm 1fr;
+      gap: 2mm;
+      align-items: center;
+      border-radius: 2mm;
+      overflow: hidden;
+    }
+
+    .instruction-row-accent .instruction-row-text {
+      background: linear-gradient(90deg, var(--green-a), var(--green-b));
+    }
+
+    .instruction-icon-box {
+      width: 15mm;
+      height: 12mm;
+      display: grid;
+      place-items: center;
+      border: none;
+      border-right: 0.35mm solid var(--line);
+      border-radius: 0;
+    }
+
+    .instruction-icon {
+      width: 13mm;
+      height: 10mm;
+      object-fit: contain;
+    }
+
+    .instruction-row-text {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 3mm;
+      font-size: 4.2mm;
+      border-left: none;
+      border-radius: 0 2mm 2mm 0;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 1fr 42mm;
+      gap: 4mm;
+    }
+
+    .workspace-blank {
+      min-height: 205mm;
+    }
+
+    .workspace-with-footer {
+      min-height: 152mm;
+      margin-top: 2mm;
+    }
+
+    .workspace-main,
+    .workspace-side {
+      min-height: 100%;
+    }
+
+    .workspace-main {
+      padding: 1mm 0;
+    }
+
+    .instruction-copy {
+      margin-bottom: 3mm;
+    }
+
+    .instruction-text {
+      margin: 0;
+      font-size: 4.1mm;
+      line-height: 1.35;
+      font-weight: 400;
+    }
+
+    .teacher-note,
+    .difficulty-note,
+    .variant-hint {
+      margin: 2mm 0 0;
+      color: var(--muted);
+      line-height: 1.35;
+      font-size: 3.5mm;
+    }
+
+    .task-stack {
+      display: grid;
+      gap: 3mm;
+    }
+
+    .workspace-side {
+      display: grid;
+      align-content: start;
+      gap: 3mm;
+    }
+
+    .task-card {
+      padding: 3mm;
+      border-radius: 2mm;
+    }
+
+    .task-card-header {
+      align-items: center;
+      display: flex;
+      gap: 2mm;
+    }
+
+    .task-number {
+      min-width: 6mm;
+      font-weight: 700;
+      display: inline-flex;
+    }
+
+    .task-icon {
+      width: 8mm;
+      height: 8mm;
+      object-fit: contain;
+    }
+
+    .task-type {
+      font-size: 3.1mm;
+      color: var(--muted);
+    }
+
+    .task-prompt {
+      margin: 2mm 0 0;
+      line-height: 1.35;
+      font-size: 3.8mm;
+    }
+
+    .answer-box {
+      margin-top: 2mm;
+      font-size: 3.3mm;
+      color: var(--muted);
+      display: grid;
+    }
+
+    .task-hint {
+      margin: 2mm 0 0;
+      color: var(--muted);
+      font-style: italic;
+      font-size: 3.2mm;
+    }
+
+    .info-box {
+      padding: 3mm;
+      border-radius: 0;
+    }
+
+    .info-box h3 {
+      margin: 0 0 1mm;
+      font-size: 4mm;
+      font-weight: 400;
+    }
+
+    .info-box ul,
+    .task-options {
+      margin: 0;
+      padding-left: 4mm;
+      font-size: 3.6mm;
+      line-height: 1.35;
+    }
+
+    .bottom-zone {
+      position: absolute;
+      left: 4mm;
+      right: 4mm;
+      bottom: 4mm;
+      height: 27mm;
+      border-top: 0.35mm solid var(--line);
+      display: grid;
+      grid-template-columns: 40mm 1fr;
+      gap: 6mm;
+      padding-top: 3mm;
+    }
+
+    .points-card {
+      position: relative;
+      overflow: hidden;
+      padding: 2mm;
+    }
+
+    .points-diagonal {
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--point-green) 0 47%, transparent 47% 100%);
+    }
+
+    .points-copy {
+      position: relative;
+      z-index: 1;
+      font-size: 2.8mm;
+      line-height: 1.2;
+    }
+
+    .points-copy p {
+      margin: 0 0 1.1mm;
+    }
+
+    .memo-card {
+      padding: 2mm 3mm;
+    }
+
+    .memo-label {
+      margin: 0;
+      font-size: 5mm;
+    }
+
+    .sheet-footer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -5mm;
+      display: flex;
+      justify-content: space-between;
+      font-size: 3.1mm;
+      color: var(--ink);
+    }
+
+    @media (max-width: 960px) {
+      .worksheet-set {
+        width: 100%;
+      }
+
+      .page {
+        width: 100vw;
+        height: auto;
+        min-height: 297mm;
+        transform-origin: top center;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  <main class="worksheet-set">
+    
+    <section class="page">
+      <div class="top-grid">
+        <div class="subject-box">Foerderschulbereich, fruehe Lernstufe</div>
+        <div class="title-box">
+          <div class="level-label">sehr leicht</div>
+          <h1>Farben</h1>
+          <p class="title-sub">Meine Farben</p>
+        </div>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta-box">Datum:</div>
+        <div class="meta-box">Name:</div>
+      </div>
+
+      <div class="sheet-frame">
+        <div class="sheet-pill">Arbeitsanweisung</div>
+        <div class="instruction-row-stack"><div class="instruction-row instruction-row-accent"><div class="instruction-icon-box"><img class="instruction-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Lesen-1.png" alt="Symbol"></div><div class="instruction-row-text">Male rot an. Zeige gelb. Kreise blau ein.</div></div><div class="instruction-row instruction-row-accent"><div class="instruction-icon-box"><img class="instruction-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Lesen-2.png" alt="Symbol"></div><div class="instruction-row-text">Kreise den blauen Ball ein.</div></div><div class="instruction-row instruction-row-accent"><div class="instruction-icon-box"><img class="instruction-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Betrachten-1.png" alt="Symbol"></div><div class="instruction-row-text">Arbeite ruhig und Schritt für Schritt.</div></div><div class="instruction-row"><div class="instruction-icon-box"><img class="instruction-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Verbinden-1.png" alt="Symbol"></div><div class="instruction-row-text">Arbeite ruhig und Schritt für Schritt.</div></div></div>
+
+        <div class="workspace workspace-with-footer">
+          <div class="workspace-main">
+            <div class="instruction-copy">
+              <p class="instruction-text">Male rot an. Zeige gelb. Kreise blau ein.</p>
+              <p class="teacher-note">Kurze Arbeitsphasen, klare Wiederholung und sichtbare Farbhinweise helfen bei der Bearbeitung.</p>
+              <p class="difficulty-note">Eine Farbe pro Aufgabe, sehr kurze Arbeitsauftraege und klare Bildunterstuetzung.</p>
+            </div>
+            <div class="task-stack">
+              
+    <article class="task-card">
+      <div class="task-card-header">
+        <span class="task-number">1</span>
+        <img class="task-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Betrachten-1.png" alt="circling">
+        <span class="task-type">circling</span>
+      </div>
+      <p class="task-prompt">Kreise den blauen Ball ein.</p>
+      
+      <div class="answer-box">
+        <span>Erwartete Antwort:</span>
+        <strong>Ein Bild ist eingekreist.</strong>
+      </div>
+      
+    </article>
+    
+            </div>
+          </div>
+          <aside class="workspace-side">
+            
+    <section class="info-box">
+      <h3>Unterstuetzung</h3>
+      <ul><li>Farbkaerten rot, gelb, blau</li></ul>
+    </section>
+    
+            
+    <section class="info-box image-box">
+      <h3>Bild</h3>
+      <p>Drei einfache Gegenstaende nebeneinander: ein roter Apfel, eine gelbe Sonne und ein blauer Ball auf weissem Hintergrund.</p>
+    </section>
+    
+            
+    <section class="info-box">
+      <h3>Loesung</h3>
+      <ul><li>Der blaue Ball wird eingekreist.</li></ul>
+    </section>
+    
+          </aside>
+        </div>
+
+        
+    <div class="bottom-zone">
+      <div class="points-card">
+        <div class="points-diagonal"></div>
+        <div class="points-copy">
+          <p><strong>Punkte:</strong> ____</p>
+          <p>von ____</p>
+          <p>Das muss ich üben!</p>
+          <p>Das kann ich manchmal!</p>
+          <p>Das kann ich gut!</p>
+        </div>
+      </div>
+      <div class="memo-card">
+        <p class="memo-label">Memo:</p>
+      </div>
+    </div>
+    
+
+        <div class="sheet-footer">
+          <span>Fußzeile mit Erklärung / Version / Ersteller</span>
+          <span>Seite 1</span>
+        </div>
+      </div>
+    </section>
+    
+    <section class="page">
+      <div class="top-grid">
+        <div class="subject-box">Foerderschulbereich, fruehe Lernstufe</div>
+        <div class="title-box">
+          <div class="level-label">mittel</div>
+          <h1>Farben</h1>
+          <p class="title-sub">Finde die passende Farbe</p>
+        </div>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta-box">Datum:</div>
+        <div class="meta-box">Name:</div>
+      </div>
+
+      <div class="sheet-frame">
+        <div class="sheet-pill">Arbeitsanweisung</div>
+        <div class="instruction-row-stack"><div class="instruction-row instruction-row-accent"><div class="instruction-icon-box"><img class="instruction-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Lesen-1.png" alt="Symbol"></div><div class="instruction-row-text">Verbinde jedes Bild mit der richtigen Farbe.</div></div><div class="instruction-row instruction-row-accent"><div class="instruction-icon-box"><img class="instruction-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Lesen-2.png" alt="Symbol"></div><div class="instruction-row-text">Verbinde Apfel, Sonne und Ball mit rot, gelb und blau.</div></div><div class="instruction-row instruction-row-accent"><div class="instruction-icon-box"><img class="instruction-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Betrachten-1.png" alt="Symbol"></div><div class="instruction-row-text">Arbeite ruhig und Schritt für Schritt.</div></div><div class="instruction-row"><div class="instruction-icon-box"><img class="instruction-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Verbinden-1.png" alt="Symbol"></div><div class="instruction-row-text">Arbeite ruhig und Schritt für Schritt.</div></div></div>
+
+        <div class="workspace workspace-with-footer">
+          <div class="workspace-main">
+            <div class="instruction-copy">
+              <p class="instruction-text">Verbinde jedes Bild mit der richtigen Farbe.</p>
+              <p class="teacher-note">Kurze Arbeitsphasen, klare Wiederholung und sichtbare Farbhinweise helfen bei der Bearbeitung.</p>
+              <p class="difficulty-note">Kurze Zuordnungen mit kleinen Denkschritten.</p>
+            </div>
+            <div class="task-stack">
+              
+    <article class="task-card">
+      <div class="task-card-header">
+        <span class="task-number">1</span>
+        <img class="task-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Verbinden-1.png" alt="matching">
+        <span class="task-type">matching</span>
+      </div>
+      <p class="task-prompt">Verbinde Apfel, Sonne und Ball mit rot, gelb und blau.</p>
+      
+      <div class="answer-box">
+        <span>Erwartete Antwort:</span>
+        <strong>Drei Verbindungen werden gezogen.</strong>
+      </div>
+      
+    </article>
+    
+            </div>
+          </div>
+          <aside class="workspace-side">
+            
+    <section class="info-box">
+      <h3>Unterstuetzung</h3>
+      <ul><li>Farbwoerter als Wortkarten</li></ul>
+    </section>
+    
+            
+    <section class="info-box image-box">
+      <h3>Bild</h3>
+      <p>Einfach gezeichnete Motive fuer Apfel, Sonne und Ball mit gut erkennbaren Farben.</p>
+    </section>
+    
+            
+    <section class="info-box">
+      <h3>Loesung</h3>
+      <ul><li>Apfel zu rot, Sonne zu gelb, Ball zu blau.</li></ul>
+    </section>
+    
+          </aside>
+        </div>
+
+        
+    <div class="bottom-zone">
+      <div class="points-card">
+        <div class="points-diagonal"></div>
+        <div class="points-copy">
+          <p><strong>Punkte:</strong> ____</p>
+          <p>von ____</p>
+          <p>Das muss ich üben!</p>
+          <p>Das kann ich manchmal!</p>
+          <p>Das kann ich gut!</p>
+        </div>
+      </div>
+      <div class="memo-card">
+        <p class="memo-label">Memo:</p>
+      </div>
+    </div>
+    
+
+        <div class="sheet-footer">
+          <span>Fußzeile mit Erklärung / Version / Ersteller</span>
+          <span>Seite 2</span>
+        </div>
+      </div>
+    </section>
+    
+    <section class="page">
+      <div class="top-grid">
+        <div class="subject-box">Foerderschulbereich, fruehe Lernstufe</div>
+        <div class="title-box">
+          <div class="level-label">etwas schwerer</div>
+          <h1>Farben</h1>
+          <p class="title-sub">Farben im Alltag</p>
+        </div>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta-box">Datum:</div>
+        <div class="meta-box">Name:</div>
+      </div>
+
+      <div class="sheet-frame">
+        <div class="sheet-pill">Arbeitsanweisung</div>
+        <div class="instruction-row-stack"><div class="instruction-row instruction-row-accent"><div class="instruction-icon-box"><img class="instruction-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Lesen-1.png" alt="Symbol"></div><div class="instruction-row-text">Schreibe oder male etwas Rotes, etwas Gelbes und etwas Blaues.</div></div><div class="instruction-row instruction-row-accent"><div class="instruction-icon-box"><img class="instruction-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Lesen-2.png" alt="Symbol"></div><div class="instruction-row-text">Finde zu jeder Farbe einen Gegenstand aus deinem Alltag.</div></div><div class="instruction-row instruction-row-accent"><div class="instruction-icon-box"><img class="instruction-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Betrachten-1.png" alt="Symbol"></div><div class="instruction-row-text">Arbeite ruhig und Schritt für Schritt.</div></div><div class="instruction-row"><div class="instruction-icon-box"><img class="instruction-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Verbinden-1.png" alt="Symbol"></div><div class="instruction-row-text">Arbeite ruhig und Schritt für Schritt.</div></div></div>
+
+        <div class="workspace workspace-with-footer">
+          <div class="workspace-main">
+            <div class="instruction-copy">
+              <p class="instruction-text">Schreibe oder male etwas Rotes, etwas Gelbes und etwas Blaues.</p>
+              <p class="teacher-note">Kurze Arbeitsphasen, klare Wiederholung und sichtbare Farbhinweise helfen bei der Bearbeitung.</p>
+              <p class="difficulty-note">Mehr Selbststaendigkeit und ein kleiner Transfer in den Alltag.</p>
+            </div>
+            <div class="task-stack">
+              
+    <article class="task-card">
+      <div class="task-card-header">
+        <span class="task-number">1</span>
+        <img class="task-icon" src="file:///Users/rolfyhientz/Documents/GitHub/AB-Agent/pictogramme/Lesen-4.png" alt="open_task">
+        <span class="task-type">open task</span>
+      </div>
+      <p class="task-prompt">Finde zu jeder Farbe einen Gegenstand aus deinem Alltag.</p>
+      
+      <div class="answer-box">
+        <span>Erwartete Antwort:</span>
+        <strong>Drei kurze Eintraege oder Zeichnungen.</strong>
+      </div>
+      
+    </article>
+    
+            </div>
+          </div>
+          <aside class="workspace-side">
+            
+    <section class="info-box">
+      <h3>Unterstuetzung</h3>
+      <ul><li>Beispielkarten mit Alltagsgegenstaenden</li></ul>
+    </section>
+    
+            
+        <section class="info-box image-box">
+          <h3>Bild</h3>
+          <p>Kein zusaetzliches Bild noetig.</p>
+        </section>
+        
+            
+    <section class="info-box">
+      <h3>Loesung</h3>
+      <ul><li>Moegliche Antworten: Apfel, Sonne, Ball.</li></ul>
+    </section>
+    
+          </aside>
+        </div>
+
+        
+    <div class="bottom-zone">
+      <div class="points-card">
+        <div class="points-diagonal"></div>
+        <div class="points-copy">
+          <p><strong>Punkte:</strong> ____</p>
+          <p>von ____</p>
+          <p>Das muss ich üben!</p>
+          <p>Das kann ich manchmal!</p>
+          <p>Das kann ich gut!</p>
+        </div>
+      </div>
+      <div class="memo-card">
+        <p class="memo-label">Memo:</p>
+      </div>
+    </div>
+    
+
+        <div class="sheet-footer">
+          <span>Fußzeile mit Erklärung / Version / Ersteller</span>
+          <span>Seite 3</span>
+        </div>
+      </div>
+    </section>
+    
+  </main>
+</body>
+</html>

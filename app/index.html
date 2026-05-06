@@ -13,54 +13,100 @@
         <p class="eyebrow">AB-Agent</p>
         <h1>Arbeitsblatt-Assistentin</h1>
         <p class="intro">
-          Diese Startseite ist das Grundgeruest fuer die spaetere Eingabe von Thema,
-          Lernziel, Differenzierung und Vorlagenwahl.
+          Erzeuge differenzierte Arbeitsblaetter fuer den Foerderschulbereich mit drei
+          Niveaustufen, optionalem Bildbedarf und direkter Vorschau.
         </p>
       </div>
       <div class="status-card">
         <strong>MVP-Status</strong>
-        <p>Projektstruktur angelegt. Naechster Schritt: echte Vorlage integrieren.</p>
+        <p>Lokaler Generator mit OpenAI-Workflow und HTML-Vorschau.</p>
       </div>
     </section>
 
-    <section class="panel">
-      <h2>Geplante Eingaben</h2>
-      <form class="form-grid">
-        <label>
-          <span>Thema</span>
-          <input type="text" placeholder="z. B. Farben">
-        </label>
+    <section class="workspace">
+      <section class="panel input-panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow eyebrow-dark">Eingabe</p>
+            <h2>Arbeitsblatt erstellen</h2>
+          </div>
+          <div class="button-row">
+            <button id="demo-button" class="secondary-button" type="button">Demo laden</button>
+            <button id="generate-button" class="primary-button" form="generator-form" type="submit">
+              Arbeitsblaetter erzeugen
+            </button>
+          </div>
+        </div>
 
-        <label>
-          <span>Lernziel</span>
-          <textarea rows="4" placeholder="z. B. Grundfarben erkennen und benennen"></textarea>
-        </label>
+        <form id="generator-form" class="form-grid">
+          <label>
+            <span>Thema</span>
+            <input name="topic" type="text" placeholder="z. B. Farben" required>
+          </label>
 
-        <label>
-          <span>Zielgruppe</span>
-          <input type="text" placeholder="z. B. Foerderschulbereich, fruehe Lernstufe">
-        </label>
+          <label>
+            <span>Lernziel</span>
+            <textarea name="learning_goal" rows="4" placeholder="z. B. Grundfarben erkennen und benennen" required></textarea>
+          </label>
 
-        <label>
-          <span>Bildbedarf</span>
-          <select>
-            <option>optional</option>
-            <option>ja</option>
-            <option>nein</option>
-          </select>
-        </label>
-      </form>
-    </section>
+          <label>
+            <span>Zielgruppe</span>
+            <input name="target_group" type="text" value="Foerderschulbereich, fruehe Lernstufe">
+          </label>
 
-    <section class="panel">
-      <h2>Projektbausteine</h2>
-      <ul class="checklist">
-        <li>System-Prompt vorhanden</li>
-        <li>JSON-Schema vorhanden</li>
-        <li>Beispiel-Ein- und Ausgabe vorhanden</li>
-        <li>Vorlagenordner vorbereitet</li>
-      </ul>
+          <label>
+            <span>Didaktischer Fokus</span>
+            <textarea name="focus" rows="3" placeholder="z. B. sehr einfache Sprache, visuelle Entlastung, klare Wiederholung"></textarea>
+          </label>
+
+          <label>
+            <span>Bildbedarf</span>
+            <select name="image_preference">
+              <option value="optional">optional</option>
+              <option value="ja">ja</option>
+              <option value="nein">nein</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Vorlagenvariante</span>
+            <select name="template_variant">
+              <option value="instructions">mit Arbeitsanweisungen</option>
+              <option value="blank">blanko</option>
+            </select>
+          </label>
+
+          <label class="full-span">
+            <span>Bekannter Wortschatz</span>
+            <input name="known_vocabulary" type="text" placeholder="z. B. rot, gelb, blau, Ball, Sonne">
+          </label>
+        </form>
+
+        <div class="status-panel">
+          <div id="status-box" class="status-message" data-state="idle"></div>
+          <p id="output-meta" class="output-meta"></p>
+          <div class="link-row">
+            <a id="open-preview" class="preview-link" href="#" target="_blank" hidden>Vorschau separat oeffnen</a>
+            <a id="open-pdf" class="preview-link" href="#" target="_blank" hidden>PDF oeffnen</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel preview-panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow eyebrow-dark">Vorschau</p>
+            <h2>Gerenderte Arbeitsblaetter</h2>
+          </div>
+        </div>
+        <iframe
+          id="preview-frame"
+          title="Arbeitsblatt-Vorschau"
+          src="../out/arbeitsblaetter-vorschau.html"
+        ></iframe>
+      </section>
     </section>
   </main>
+  <script src="./app.js"></script>
 </body>
 </html>
